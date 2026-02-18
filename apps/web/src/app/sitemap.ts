@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { MOCK_DAS } from "@/lib/mock-das";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://devintel.site";
+  const baseUrl = "https://civroda.com";
 
   const daPages = MOCK_DAS.map((da) => ({
     url: `${baseUrl}/das/${da.id}`,

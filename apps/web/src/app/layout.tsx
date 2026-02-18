@@ -10,19 +10,19 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://devintel.site"),
+  metadataBase: new URL("https://civroda.com"),
   title: {
-    default: "DevIntel | Council Planning Intelligence for Sydney",
+    default: "CivRoda | Council Planning Intelligence for Sydney",
     template: "%s",
   },
   description:
     "Predict DA approval likelihood, compare similar projects, and decode council conditions across Parramatta, Blacktown & Hornsby.",
   openGraph: {
-    title: "DevIntel | Council Planning Intelligence for Sydney",
+    title: "CivRoda | Council Planning Intelligence for Sydney",
     description:
       "Predict DA approval likelihood, compare similar projects, and decode council conditions across Parramatta, Blacktown & Hornsby.",
-    url: "https://devintel.site",
-    siteName: "DevIntel",
+    url: "https://civroda.com",
+    siteName: "CivRoda",
     type: "website",
     locale: "en_AU",
   },
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
   },
   alternates: {
-    canonical: "https://devintel.site",
+    canonical: "https://civroda.com",
   },
 };
 

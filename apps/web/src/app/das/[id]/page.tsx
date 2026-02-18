@@ -18,23 +18,23 @@ export function generateMetadata({
 }): Metadata {
   const da = MOCK_DAS.find((d) => d.id === params.id);
   if (!da) {
-    return { title: "DA Not Found | DevIntel" };
+    return { title: "DA Not Found | CivRoda" };
   }
 
-  const title = `DA: ${da.address} — ${da.council} Council | DevIntel`;
+  const title = `DA: ${da.address} — ${da.council} Council | CivRoda`;
   const description = `${da.DA_outcome} development application at ${da.address}. Zoning ${da.zoning}, ${da.land_size} lot, ${da.height} height, FSR ${da.FSR}. View conditions and similar projects.`;
 
   return {
     title,
     description,
     alternates: {
-      canonical: `https://devintel.site/das/${da.id}`,
+      canonical: `https://civroda.com/das/${da.id}`,
     },
     openGraph: {
       title,
       description,
-      url: `https://devintel.site/das/${da.id}`,
-      siteName: "DevIntel",
+      url: `https://civroda.com/das/${da.id}`,
+      siteName: "CivRoda",
       type: "article",
     },
   };

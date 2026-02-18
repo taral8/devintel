@@ -3,18 +3,18 @@ import { Suspense } from "react";
 import DAListContent from "@/components/DAListContent";
 
 export const metadata: Metadata = {
-  title: "DA Explorer — Search Development Applications | DevIntel",
+  title: "DA Explorer — Search Development Applications | CivRoda",
   description:
     "Search and filter development applications across Parramatta, Blacktown & Hornsby. View approval rates, conditions, and similar projects.",
   alternates: {
-    canonical: "https://devintel.site/das",
+    canonical: "https://civroda.com/das",
   },
   openGraph: {
-    title: "DA Explorer — Search Development Applications | DevIntel",
+    title: "DA Explorer — Search Development Applications | CivRoda",
     description:
       "Search and filter development applications across Parramatta, Blacktown & Hornsby. View approval rates, conditions, and similar projects.",
-    url: "https://devintel.site/das",
-    siteName: "DevIntel",
+    url: "https://civroda.com/das",
+    siteName: "CivRoda",
     type: "website",
   },
 };

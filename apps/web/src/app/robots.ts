@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://devintel.site/sitemap.xml",
+    sitemap: "https://civroda.com/sitemap.xml",
   };
 }

@@ -6,8 +6,8 @@ import Link from "next/link";
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  name: "DevIntel",
-  url: "https://devintel.site",
+  name: "CivRoda",
+  url: "https://civroda.com",
   applicationCategory: "BusinessApplication",
   operatingSystem: "Web",
   description:
@@ -64,7 +64,7 @@ export default function HomePage() {
 
             {/* Sub-headline */}
             <p className="animate-slide-up-delay mt-6 max-w-2xl text-lg leading-relaxed text-white/60 sm:text-xl opacity-0">
-              DevIntel analyses historical development applications across
+              CivRoda analyses historical development applications across
               Parramatta, Blacktown & Hornsby to predict approval likelihood,
               surface similar projects, and translate council conditions into
               plain English.
@@ -251,7 +251,7 @@ export default function HomePage() {
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-white/50">
                 Whether you&apos;re a property developer, town planner, or
-                architect, DevIntel turns months of council research into
+                architect, CivRoda turns months of council research into
                 minutes of actionable insights.
               </p>
             </div>
@@ -348,7 +348,7 @@ export default function HomePage() {
                   </svg>
                 </div>
                 <span className="text-sm font-semibold text-gray-900">
-                  DevIntel
+                  CivRoda
                 </span>
               </div>
               <p className="mt-3 text-sm text-gray-400">
@@ -387,7 +387,7 @@ export default function HomePage() {
           </div>
 
           <div className="mt-8 border-t border-gray-200 pt-6 text-center text-sm text-gray-400">
-            &copy; {new Date().getFullYear()} DevIntel. All rights reserved.
+            &copy; {new Date().getFullYear()} CivRoda. All rights reserved.
           </div>
         </div>
       </footer>

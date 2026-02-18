@@ -37,22 +37,22 @@ export function generateMetadata({
   params: { slug: string };
 }): Metadata {
   const council = COUNCILS[params.slug];
-  if (!council) return { title: "Council Not Found | DevIntel" };
+  if (!council) return { title: "Council Not Found | CivRoda" };
 
-  const title = `${council.name} Council DAs — Development Applications & Approval Rates | DevIntel`;
+  const title = `${council.name} Council DAs — Development Applications & Approval Rates | CivRoda`;
   const description = `Browse development applications in ${council.name} Council, ${council.region}. View approval rates, common conditions, and compare similar projects.`;
 
   return {
     title,
     description,
     alternates: {
-      canonical: `https://devintel.site/councils/${params.slug}`,
+      canonical: `https://civroda.com/councils/${params.slug}`,
     },
     openGraph: {
       title,
       description,
-      url: `https://devintel.site/councils/${params.slug}`,
-      siteName: "DevIntel",
+      url: `https://civroda.com/councils/${params.slug}`,
+      siteName: "CivRoda",
       type: "website",
     },
   };

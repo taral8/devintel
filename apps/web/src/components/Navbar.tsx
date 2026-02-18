@@ -38,7 +38,7 @@ export default function Navbar() {
               isHome ? "text-white" : "text-gray-900"
             }`}
           >
-            DevIntel
+            CivRoda
           </span>
         </Link>
 

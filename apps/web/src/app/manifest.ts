@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "DevIntel — Council Planning Intelligence",
-    short_name: "DevIntel",
+    name: "CivRoda — Council Planning Intelligence",
+    short_name: "CivRoda",
     description:
       "Predict DA approval likelihood, compare similar projects, and decode council conditions across Sydney councils.",
     start_url: "/",
