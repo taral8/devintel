@@ -290,49 +290,6 @@ export default function DADetailPage({
             </section>
           )}
 
-          {/* JSON Export */}
-          <section className="card">
-            <div className="mb-4 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gray-100">
-                  <svg className="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
-                  </svg>
-                </div>
-                <div>
-                  <h2 className="text-sm font-bold text-gray-900">
-                    API Response
-                  </h2>
-                  <p className="text-xs text-gray-400">
-                    Structured JSON
-                  </p>
-                </div>
-              </div>
-            </div>
-            <pre className="max-h-72 overflow-auto rounded-xl bg-gray-900 p-4 text-xs leading-relaxed text-emerald-400">
-              {JSON.stringify(
-                {
-                  address: da.address,
-                  council: da.council,
-                  zoning: da.zoning,
-                  land_size: da.land_size,
-                  height: da.height,
-                  FSR: da.FSR,
-                  DA_outcome: da.DA_outcome,
-                  key_conditions: da.key_conditions,
-                  pdf_links: da.pdf_links,
-                  similar_projects: da.similar_projects.map((p) => ({
-                    address: p.address,
-                    DA_outcome: p.DA_outcome,
-                    key_conditions: p.key_conditions,
-                  })),
-                  approval_score: da.approval_score,
-                },
-                null,
-                2
-              )}
-            </pre>
-          </section>
         </div>
       </div>
     </div>
