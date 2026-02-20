@@ -2,10 +2,10 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "CivroDA — Planning Intelligence",
+    name: "CivroDA — Approval Risk Intelligence",
     short_name: "CivroDA",
     description:
-      "Search development applications, find similar approved projects nearby, and understand common consent conditions across Sydney councils.",
+      "Predict your DA approval risk before you lodge. Precedent intelligence built from real council decisions.",
     start_url: "/",
     display: "standalone",
     background_color: "#f9fafb",

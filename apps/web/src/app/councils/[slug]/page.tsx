@@ -2,30 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { MOCK_DAS } from "@/lib/mock-das";
+import { getRefusalThemes, getConsentConditionThemes } from "@/lib/risk-engine";
+import { COUNCIL, DISCLAIMER } from "@/lib/copy";
+import CouncilBehaviourSnapshot from "@/components/CouncilBehaviourSnapshot";
 
-const COUNCILS: Record<
-  string,
-  { name: string; region: string; description: string }
-> = {
-  parramatta: {
-    name: "Parramatta",
-    region: "Western Sydney",
-    description:
-      "Parramatta is one of Sydney's fastest-growing CBDs with major high-density development. Explore DA outcomes, approval rates, and common consent conditions across residential, commercial, and mixed-use projects in the Parramatta LGA.",
-  },
-  blacktown: {
-    name: "Blacktown",
-    region: "Western Sydney",
-    description:
-      "Blacktown LGA covers a large area of Western Sydney with significant greenfield and infill development. Review DA trends, approval patterns, and council conditions for projects ranging from single dwellings to industrial warehouses.",
-  },
-  hornsby: {
-    name: "Hornsby",
-    region: "Northern Sydney",
-    description:
-      "Hornsby Shire includes the Hornsby town centre and surrounding bushland suburbs. Understand DA outcomes, environmental considerations, and council requirements for development in this northern Sydney council area.",
-  },
-};
+const COUNCILS = COUNCIL.councils;
 
 export function generateStaticParams() {
   return Object.keys(COUNCILS).map((slug) => ({ slug }));
@@ -39,8 +20,8 @@ export function generateMetadata({
   const council = COUNCILS[params.slug];
   if (!council) return { title: "Council Not Found" };
 
-  const title = `${council.name} Council — Development Applications & Approval Rates`;
-  const description = `Browse development applications in ${council.name} Council, ${council.region}. View approval rates, common conditions, and compare similar projects.`;
+  const title = COUNCIL.metaTitle(council.name);
+  const description = COUNCIL.metaDescription(council.name, council.region);
 
   return {
     title,
@@ -70,13 +51,13 @@ export default function CouncilPage({
   const approved = das.filter((d) => d.DA_outcome === "Approved");
   const refused = das.filter((d) => d.DA_outcome === "Refused");
   const deferred = das.filter((d) => d.DA_outcome === "Deferred");
-  const underAssessment = das.filter(
-    (d) => d.DA_outcome === "Under Assessment"
-  );
   const approvalRate =
     das.length > 0
       ? Math.round((approved.length / das.length) * 1000) / 10
       : 0;
+
+  const refusalThemes = getRefusalThemes(council.name);
+  const consentConditions = getConsentConditionThemes(council.name);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -105,7 +86,7 @@ export default function CouncilPage({
             href="/"
             className="text-gray-400 transition-colors hover:text-brand-700"
           >
-            Home
+            Overview
           </Link>
           <svg
             className="h-3.5 w-3.5 text-gray-300"
@@ -132,7 +113,7 @@ export default function CouncilPage({
             {council.region}
           </p>
           <h1 className="mt-1 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-            {council.name} Council — Development Applications
+            {council.name} Council — Approval Risk &amp; Behaviour
           </h1>
           <p className="mt-3 max-w-3xl text-base text-gray-500">
             {council.description}
@@ -142,11 +123,11 @@ export default function CouncilPage({
         {/* Stats */}
         <div className="mb-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {[
-            { label: "Total DAs", value: das.length },
-            { label: "Approved", value: approved.length },
-            { label: "Refused", value: refused.length },
-            { label: "Deferred", value: deferred.length },
-            { label: "Approval Rate", value: `${approvalRate}%` },
+            { label: COUNCIL.stats.totalDAs, value: das.length },
+            { label: COUNCIL.stats.approved, value: approved.length },
+            { label: COUNCIL.stats.refused, value: refused.length },
+            { label: COUNCIL.stats.deferred, value: deferred.length },
+            { label: COUNCIL.stats.approvalRate, value: `${approvalRate}%` },
           ].map((stat) => (
             <div
               key={stat.label}
@@ -160,9 +141,18 @@ export default function CouncilPage({
           ))}
         </div>
 
+        {/* Council Behaviour Snapshot (NEW) */}
+        <div className="mb-8">
+          <CouncilBehaviourSnapshot
+            approvalRate={approvalRate}
+            refusalThemes={refusalThemes}
+            consentConditions={consentConditions}
+          />
+        </div>
+
         {/* DA List */}
         <h2 className="mb-3 text-lg font-bold text-gray-900">
-          All Development Applications in {council.name}
+          {COUNCIL.listTitle(council.name)}
         </h2>
         <div className="space-y-2">
           {das.map((da) => (
@@ -201,7 +191,7 @@ export default function CouncilPage({
             href={`/das?council=${encodeURIComponent(council.name)}`}
             className="btn-primary"
           >
-            Search all {council.name} DAs
+            {COUNCIL.cta(council.name)}
             <svg
               className="h-3.5 w-3.5"
               fill="none"
@@ -218,6 +208,11 @@ export default function CouncilPage({
             </svg>
           </Link>
         </div>
+
+        {/* Disclaimer */}
+        <p className="mt-8 text-center text-xs text-gray-300">
+          {DISCLAIMER.standard}
+        </p>
       </div>
     </>
   );

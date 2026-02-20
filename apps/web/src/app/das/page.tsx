@@ -3,16 +3,16 @@ import { Suspense } from "react";
 import DAListContent from "@/components/DAListContent";
 
 export const metadata: Metadata = {
-  title: "Search Development Applications",
+  title: "Run Approval Risk Scan — Development Applications",
   description:
-    "Search and filter development applications across Parramatta, Blacktown & Hornsby. View approval rates, conditions, and similar projects.",
+    "Scan development applications across Parramatta, Blacktown & Hornsby. Analyse approval risk, precedent matches, and consent conditions.",
   alternates: {
     canonical: "https://civroda.com/das",
   },
   openGraph: {
-    title: "Search Development Applications | CivroDA",
+    title: "Run Approval Risk Scan | CivroDA",
     description:
-      "Search and filter development applications across Parramatta, Blacktown & Hornsby. View approval rates, conditions, and similar projects.",
+      "Scan development applications across Parramatta, Blacktown & Hornsby. Analyse approval risk, precedent matches, and consent conditions.",
     url: "https://civroda.com/das",
     siteName: "CivroDA",
     type: "website",
@@ -77,10 +77,10 @@ export default function DAListPage() {
           </div>
           <div>
             <h1 className="text-xl font-bold tracking-tight text-gray-900">
-              Search Development Applications
+              Approval Risk Scan
             </h1>
             <p className="text-sm text-gray-500">
-              Filter by council, zoning, and outcome across Parramatta, Blacktown &amp; Hornsby
+              Filter by council, zoning, and determination outcome across Parramatta, Blacktown &amp; Hornsby
             </p>
           </div>
         </div>

@@ -6,7 +6,7 @@ export default function ConditionsList({
   if (conditions.length === 0) {
     return (
       <div className="rounded-lg border border-dashed border-gray-300 py-6 text-center">
-        <p className="text-sm text-gray-400">No conditions recorded.</p>
+        <p className="text-sm text-gray-400">No conditions recorded for this application.</p>
       </div>
     );
   }

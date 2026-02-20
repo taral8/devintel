@@ -3,6 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDAData } from "@/lib/data";
 import { MOCK_DAS } from "@/lib/mock-das";
+import { computeRiskProfile } from "@/lib/risk-engine";
+import { DA_DETAIL, DISCLAIMER } from "@/lib/copy";
+import ApprovalRiskMeter from "@/components/ApprovalRiskMeter";
 import ApprovalScoreGauge from "@/components/ApprovalScoreGauge";
 import ConditionsList from "@/components/ConditionsList";
 import SimilarProjectsCard from "@/components/SimilarProjectsCard";
@@ -21,8 +24,8 @@ export function generateMetadata({
     return { title: "DA Not Found" };
   }
 
-  const title = `${da.address} — ${da.council} Council DA`;
-  const description = `${da.DA_outcome} development application at ${da.address}. Zoning ${da.zoning}, ${da.land_size} lot, ${da.height} height, FSR ${da.FSR}. View conditions and similar projects.`;
+  const title = `${da.address} — ${da.council} Council Risk Profile`;
+  const description = `${da.DA_outcome} development application at ${da.address}. Zoning ${da.zoning}, ${da.land_size} lot, ${da.height} height, FSR ${da.FSR}. View risk profile, conditions, and comparable precedents.`;
 
   return {
     title,
@@ -47,6 +50,8 @@ export default function DADetailPage({
 }) {
   const da = getDAData(params.id);
   if (!da) notFound();
+
+  const riskProfile = computeRiskProfile(da);
 
   const outcomeCls =
     da.DA_outcome === "Approved"
@@ -92,7 +97,7 @@ export default function DADetailPage({
           <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
-          Search DAs
+          {DA_DETAIL.breadcrumb}
         </Link>
         <svg className="h-3.5 w-3.5 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
@@ -123,7 +128,7 @@ export default function DADetailPage({
             href={`/api/das/${da.id}/report`}
             target="_blank"
             rel="noopener noreferrer"
-            download={`${da.id}-determination.pdf`}
+            download={`${da.id}-risk-report.pdf`}
             className="btn-secondary text-sm"
           >
             <svg
@@ -139,8 +144,8 @@ export default function DADetailPage({
                 d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
               />
             </svg>
-            <span className="hidden sm:inline">Download Report</span>
-            <span className="sm:hidden">PDF</span>
+            <span className="hidden sm:inline">{DA_DETAIL.downloadReport}</span>
+            <span className="sm:hidden">{DA_DETAIL.downloadReportShort}</span>
           </a>
         </div>
 
@@ -148,22 +153,22 @@ export default function DADetailPage({
         <div className="mt-5 grid grid-cols-2 gap-4 border-t border-gray-200 pt-5 sm:grid-cols-4">
           {[
             {
-              label: "Zoning",
+              label: DA_DETAIL.metrics.zoning,
               value: da.zoning,
               icon: "M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7",
             },
             {
-              label: "Land Size",
+              label: DA_DETAIL.metrics.landSize,
               value: da.land_size,
               icon: "M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4",
             },
             {
-              label: "Height",
+              label: DA_DETAIL.metrics.height,
               value: da.height,
               icon: "M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12",
             },
             {
-              label: "FSR",
+              label: DA_DETAIL.metrics.fsr,
               value: da.FSR,
               icon: "M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z",
             },
@@ -200,10 +205,14 @@ export default function DADetailPage({
               </div>
               <div>
                 <h2 className="text-base font-bold text-gray-900">
-                  {da.DA_outcome === "Approved" ? "Consent Conditions" : da.DA_outcome === "Refused" ? "Refusal Reasons" : "Assessment Conditions"}
+                  {da.DA_outcome === "Approved"
+                    ? DA_DETAIL.conditions.approved
+                    : da.DA_outcome === "Refused"
+                      ? DA_DETAIL.conditions.refused
+                      : DA_DETAIL.conditions.assessment}
                 </h2>
                 <p className="text-xs text-gray-400">
-                  Summarised in plain English
+                  {DA_DETAIL.conditions.helper}
                 </p>
               </div>
             </div>
@@ -211,7 +220,7 @@ export default function DADetailPage({
           </section>
 
           {/* Similar Projects */}
-          <section className="card">
+          <section id="comparable-precedents" className="card">
             <div className="mb-4 flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50">
                 <svg className="h-4 w-4 text-brand-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -220,10 +229,10 @@ export default function DADetailPage({
               </div>
               <div>
                 <h2 className="text-base font-bold text-gray-900">
-                  Similar Approved Projects
+                  {DA_DETAIL.similarProjects.title}
                 </h2>
                 <p className="text-xs text-gray-400">
-                  {da.similar_projects.length} comparable DA{da.similar_projects.length !== 1 ? "s" : ""} in {da.council}
+                  {DA_DETAIL.similarProjects.subtitle(da.similar_projects.length, da.council)}
                 </p>
               </div>
             </div>
@@ -233,7 +242,13 @@ export default function DADetailPage({
 
         {/* ── Right Column ── */}
         <div className="space-y-6">
-          {/* Approval Score */}
+          {/* Approval Risk Meter (NEW) */}
+          <ApprovalRiskMeter
+            profile={riskProfile}
+            similarProjectsCount={da.similar_projects.length}
+          />
+
+          {/* Approval Score Gauge */}
           <section className="card">
             <div className="mb-4 flex items-center gap-3">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50">
@@ -243,10 +258,10 @@ export default function DADetailPage({
               </div>
               <div>
                 <h2 className="text-base font-bold text-gray-900">
-                  Approval Likelihood
+                  {DA_DETAIL.approvalScore.title}
                 </h2>
                 <p className="text-xs text-gray-400">
-                  Based on {da.similar_projects.length} similar project{da.similar_projects.length !== 1 ? "s" : ""}
+                  {DA_DETAIL.approvalScore.subtitle(da.similar_projects.length)}
                 </p>
               </div>
             </div>
@@ -262,14 +277,14 @@ export default function DADetailPage({
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                   </svg>
                 </div>
-                <h2 className="text-base font-bold text-gray-900">Documents</h2>
+                <h2 className="text-base font-bold text-gray-900">{DA_DETAIL.documents.title}</h2>
               </div>
               <div className="space-y-2">
                 <a
                   href={`/api/das/${da.id}/report`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  download={`${da.id}-determination.pdf`}
+                  download={`${da.id}-risk-report.pdf`}
                   className="flex items-center gap-3 rounded-lg border border-gray-200 bg-gray-50 p-3 text-sm transition-colors duration-150 hover:border-brand-300 hover:bg-brand-50/50"
                 >
                   <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-red-50">
@@ -278,7 +293,7 @@ export default function DADetailPage({
                     </svg>
                   </div>
                   <span className="truncate font-medium text-gray-700">
-                    {da.id}-determination.pdf
+                    {da.id}-risk-report.pdf
                   </span>
                   <svg className="ml-auto h-3.5 w-3.5 shrink-0 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -297,17 +312,22 @@ export default function DADetailPage({
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                   </svg>
                 </div>
-                <h2 className="text-base font-bold text-gray-900">Documents</h2>
+                <h2 className="text-base font-bold text-gray-900">{DA_DETAIL.documents.title}</h2>
               </div>
               <div className="rounded-lg border border-dashed border-gray-300 py-6 text-center">
                 <p className="text-sm text-gray-400">
-                  No documents linked yet.
+                  {DA_DETAIL.documents.empty}
                 </p>
               </div>
             </section>
           )}
         </div>
       </div>
+
+      {/* Disclaimer */}
+      <p className="mt-8 text-center text-xs text-gray-300">
+        {DISCLAIMER.standard}
+      </p>
     </div>
     </>
   );

@@ -50,7 +50,7 @@ export default function SimilarProjectsCard({
     return (
       <div className="rounded-lg border border-dashed border-gray-300 py-6 text-center">
         <p className="text-sm text-gray-400">
-          No similar projects found in this council.
+          No comparable precedents found in this council area.
         </p>
       </div>
     );

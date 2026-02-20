@@ -26,28 +26,28 @@ const icons = {
 export default function StatsCards({ stats }: { stats: StatsResponse }) {
   const items = [
     {
-      label: "DAs Indexed",
+      label: "Precedent Records",
       value: stats.total_das,
       icon: icons.total,
       iconBg: "bg-brand-50",
       iconColor: "text-brand-700",
     },
     {
-      label: "Approval Rate",
+      label: "Avg. Approval Rate",
       value: `${stats.overall_approval_rate}%`,
       icon: icons.approval,
       iconBg: "bg-emerald-50",
       iconColor: "text-emerald-600",
     },
     {
-      label: "Councils Covered",
+      label: "NSW Councils Covered",
       value: stats.councils.length,
       icon: icons.councils,
       iconBg: "bg-violet-50",
       iconColor: "text-violet-600",
     },
     {
-      label: "Under Assessment",
+      label: "Active Assessments",
       value: stats.councils.reduce((sum, c) => sum + c.under_assessment, 0),
       icon: icons.review,
       iconBg: "bg-sky-50",

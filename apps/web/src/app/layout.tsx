@@ -12,15 +12,15 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://civroda.com"),
   title: {
-    default: "CivroDA — Planning Intelligence for Smarter Development Decisions",
+    default: "CivroDA — Approval Risk Intelligence for Development Applications",
     template: "%s | CivroDA",
   },
   description:
-    "Search development applications, find similar approved projects nearby, and understand common consent conditions across Sydney councils.",
+    "Predict your DA approval risk before you lodge. Precedent-based risk profiles from real council decisions across NSW.",
   openGraph: {
-    title: "CivroDA — Planning Intelligence for Smarter Development Decisions",
+    title: "CivroDA — Approval Risk Intelligence Platform",
     description:
-      "Search development applications, find similar approved projects nearby, and understand common consent conditions across Sydney councils.",
+      "Precedent-based risk profiles from real council decisions. Predict approval probability, identify risk drivers, and review council behaviour patterns.",
     url: "https://civroda.com",
     siteName: "CivroDA",
     type: "website",

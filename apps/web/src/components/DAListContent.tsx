@@ -55,7 +55,7 @@ export default function DAListContent() {
           {loading ? (
             <span className="flex items-center gap-2">
               <span className="h-3 w-3 animate-spin rounded-full border-2 border-brand-600 border-t-transparent" />
-              Searching...
+              Scanning precedents…
             </span>
           ) : (
             <>

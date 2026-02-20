@@ -24,9 +24,9 @@ export default function DATable({ das }: { das: DA[] }) {
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
           </svg>
         </div>
-        <p className="font-semibold text-gray-900">No matching applications found</p>
+        <p className="font-semibold text-gray-900">No matching precedents found</p>
         <p className="mt-1 text-sm text-gray-500">
-          Try widening your filters to find development applications.
+          Adjust your filters to broaden the search across covered councils.
         </p>
       </div>
     );

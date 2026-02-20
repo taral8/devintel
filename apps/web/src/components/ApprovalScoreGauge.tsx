@@ -11,18 +11,18 @@ export default function ApprovalScoreGauge({ score }: { score: number }) {
   if (score >= 70) {
     color = "#0d9488";
     bgColor = "bg-emerald-50";
-    label = "Likely Approved";
-    description = "Strong precedent from similar approved projects";
+    label = "Low Risk — Likely Approved";
+    description = "Strong precedent from similar approved projects in this council area";
   } else if (score >= 40) {
     color = "#b45309";
     bgColor = "bg-amber-50";
-    label = "Uncertain";
-    description = "Mixed signals from comparable developments";
+    label = "Moderate Risk — Uncertain";
+    description = "Mixed signals from comparable developments — review conditions carefully";
   } else {
     color = "#b91c1c";
     bgColor = "bg-red-50";
-    label = "Likely Refused";
-    description = "Similar projects have mostly been refused";
+    label = "High Risk — Likely Refused";
+    description = "Similar projects have predominantly been refused in this area";
   }
 
   return (
