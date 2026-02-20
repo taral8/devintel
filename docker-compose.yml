@@ -3,26 +3,26 @@ version: '3.8'
 services:
   postgres:
     image: postgis/postgis:15-3.3
-    container_name: devintel-db
+    container_name: civroda-db
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-devintel}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-devintel123}
-      POSTGRES_DB: ${POSTGRES_DB:-devintel}
+      POSTGRES_USER: ${POSTGRES_USER:-civroda}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-civroda123}
+      POSTGRES_DB: ${POSTGRES_DB:-civroda}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U devintel -d devintel"]
+      test: ["CMD-SHELL", "pg_isready -U civroda -d civroda"]
       interval: 10s
       timeout: 5s
       retries: 5
 
   pgadmin:
     image: dpage/pgadmin4:latest
-    container_name: devintel-pgadmin
+    container_name: civroda-pgadmin
     environment:
-      PGADMIN_DEFAULT_EMAIL: admin@devintel.ai
+      PGADMIN_DEFAULT_EMAIL: admin@civroda.com
       PGADMIN_DEFAULT_PASSWORD: admin123
     ports:
       - "5050:80"

@@ -12,17 +12,17 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL("https://civroda.com"),
   title: {
-    default: "CivRoda | Council Planning Intelligence for Sydney",
-    template: "%s",
+    default: "CivroDA — Planning Intelligence for Smarter Development Decisions",
+    template: "%s | CivroDA",
   },
   description:
-    "Predict DA approval likelihood, compare similar projects, and decode council conditions across Parramatta, Blacktown & Hornsby.",
+    "Search development applications, find similar approved projects nearby, and understand common consent conditions across Sydney councils.",
   openGraph: {
-    title: "CivRoda | Council Planning Intelligence for Sydney",
+    title: "CivroDA — Planning Intelligence for Smarter Development Decisions",
     description:
-      "Predict DA approval likelihood, compare similar projects, and decode council conditions across Parramatta, Blacktown & Hornsby.",
+      "Search development applications, find similar approved projects nearby, and understand common consent conditions across Sydney councils.",
     url: "https://civroda.com",
-    siteName: "CivRoda",
+    siteName: "CivroDA",
     type: "website",
     locale: "en_AU",
   },
@@ -41,9 +41,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
-      <body className={inter.className}>
+      <body className={`${inter.className} min-h-screen`}>
         <Navbar />
-        {children}
+        <main>{children}</main>
       </body>
     </html>
   );

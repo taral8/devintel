@@ -18,10 +18,10 @@ export function generateMetadata({
 }): Metadata {
   const da = MOCK_DAS.find((d) => d.id === params.id);
   if (!da) {
-    return { title: "DA Not Found | CivRoda" };
+    return { title: "DA Not Found" };
   }
 
-  const title = `DA: ${da.address} — ${da.council} Council | CivRoda`;
+  const title = `${da.address} — ${da.council} Council DA`;
   const description = `${da.DA_outcome} development application at ${da.address}. Zoning ${da.zoning}, ${da.land_size} lot, ${da.height} height, FSR ${da.FSR}. View conditions and similar projects.`;
 
   return {
@@ -31,10 +31,10 @@ export function generateMetadata({
       canonical: `https://civroda.com/das/${da.id}`,
     },
     openGraph: {
-      title,
+      title: `${title} | CivroDA`,
       description,
       url: `https://civroda.com/das/${da.id}`,
-      siteName: "CivRoda",
+      siteName: "CivroDA",
       type: "article",
     },
   };
@@ -64,7 +64,7 @@ export default function DADetailPage({
     description: `${da.DA_outcome} DA at ${da.address}, ${da.council} Council. Zoning ${da.zoning}, ${da.land_size}, ${da.height} height, FSR ${da.FSR}.`,
     permitAudience: {
       "@type": "Audience",
-      audienceType: "Property Developers, Town Planners, Architects",
+      audienceType: "Property Developers, Town Planners, Architects, Lenders",
     },
     issuedBy: {
       "@type": "GovernmentOrganization",
@@ -82,19 +82,19 @@ export default function DADetailPage({
       type="application/ld+json"
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
     />
-    <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Breadcrumb */}
-      <nav className="mb-6 flex items-center gap-2 text-sm">
+      <nav className="mb-5 flex items-center gap-2 text-sm" aria-label="Breadcrumb">
         <Link
           href="/das"
-          className="flex items-center gap-1.5 text-gray-400 transition-colors hover:text-brand-600"
+          className="flex items-center gap-1.5 text-gray-400 transition-colors hover:text-brand-700"
         >
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
-          DA Explorer
+          Search DAs
         </Link>
-        <svg className="h-4 w-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <svg className="h-3.5 w-3.5 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
         </svg>
         <span className="truncate font-medium text-gray-700">
@@ -103,15 +103,13 @@ export default function DADetailPage({
       </nav>
 
       {/* Header Card */}
-      <div className="mb-8 rounded-2xl border border-gray-100 bg-gradient-to-r from-white to-gray-50/50 p-6 shadow-card sm:p-8">
+      <div className="mb-6 card">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
-                {da.address}
-              </h1>
-            </div>
-            <div className="mt-2 flex items-center gap-3">
+            <h1 className="text-xl font-bold tracking-tight text-gray-900 sm:text-2xl">
+              {da.address}
+            </h1>
+            <div className="mt-2 flex flex-wrap items-center gap-2.5">
               <span className="inline-flex items-center gap-1.5 text-sm text-gray-500">
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 7.5h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
@@ -126,10 +124,10 @@ export default function DADetailPage({
             target="_blank"
             rel="noopener noreferrer"
             download={`${da.id}-determination.pdf`}
-            className="flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2 font-medium text-gray-700 transition-all hover:border-brand-600 hover:bg-brand-50 hover:text-brand-600 sm:px-6 sm:py-3"
+            className="btn-secondary text-sm"
           >
             <svg
-              className="h-5 w-5"
+              className="h-4 w-4"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -147,7 +145,7 @@ export default function DADetailPage({
         </div>
 
         {/* Property metrics */}
-        <div className="mt-6 grid grid-cols-2 gap-4 border-t border-gray-100 pt-6 sm:grid-cols-4">
+        <div className="mt-5 grid grid-cols-2 gap-4 border-t border-gray-200 pt-5 sm:grid-cols-4">
           {[
             {
               label: "Zoning",
@@ -171,8 +169,8 @@ export default function DADetailPage({
             },
           ].map((metric) => (
             <div key={metric.label} className="flex items-center gap-3">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gray-100">
-                <svg className="h-5 w-5 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-100">
+                <svg className="h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d={metric.icon} />
                 </svg>
               </div>
@@ -180,7 +178,7 @@ export default function DADetailPage({
                 <p className="text-xs font-medium text-gray-400">
                   {metric.label}
                 </p>
-                <p className="text-sm font-bold text-gray-900">
+                <p className="text-sm font-bold tabular-nums text-gray-900">
                   {metric.value}
                 </p>
               </div>
@@ -189,23 +187,23 @@ export default function DADetailPage({
         </div>
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-3">
+      <div className="grid gap-6 lg:grid-cols-3">
         {/* ── Left Column ── */}
-        <div className="space-y-8 lg:col-span-2">
+        <div className="space-y-6 lg:col-span-2">
           {/* Key Conditions */}
           <section className="card">
-            <div className="mb-5 flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-amber-50">
-                <svg className="h-5 w-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+            <div className="mb-4 flex items-center gap-3">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-50">
+                <svg className="h-4 w-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
               </div>
               <div>
-                <h2 className="text-lg font-bold text-gray-900">
-                  Key Conditions
+                <h2 className="text-base font-bold text-gray-900">
+                  {da.DA_outcome === "Approved" ? "Consent Conditions" : da.DA_outcome === "Refused" ? "Refusal Reasons" : "Assessment Conditions"}
                 </h2>
                 <p className="text-xs text-gray-400">
-                  {da.DA_outcome === "Approved" ? "Approval" : da.DA_outcome === "Refused" ? "Refusal" : "Assessment"} conditions in plain English
+                  Summarised in plain English
                 </p>
               </div>
             </div>
@@ -214,18 +212,18 @@ export default function DADetailPage({
 
           {/* Similar Projects */}
           <section className="card">
-            <div className="mb-5 flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-50">
-                <svg className="h-5 w-5 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <div className="mb-4 flex items-center gap-3">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50">
+                <svg className="h-4 w-4 text-brand-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
                 </svg>
               </div>
               <div>
-                <h2 className="text-lg font-bold text-gray-900">
-                  Similar Projects
+                <h2 className="text-base font-bold text-gray-900">
+                  Similar Approved Projects
                 </h2>
                 <p className="text-xs text-gray-400">
-                  {da.similar_projects.length} comparable DAs in {da.council}
+                  {da.similar_projects.length} comparable DA{da.similar_projects.length !== 1 ? "s" : ""} in {da.council}
                 </p>
               </div>
             </div>
@@ -237,34 +235,34 @@ export default function DADetailPage({
         <div className="space-y-6">
           {/* Approval Score */}
           <section className="card">
-            <div className="mb-5 flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50">
-                <svg className="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <div className="mb-4 flex items-center gap-3">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50">
+                <svg className="h-4 w-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
                 </svg>
               </div>
               <div>
-                <h2 className="text-lg font-bold text-gray-900">
+                <h2 className="text-base font-bold text-gray-900">
                   Approval Likelihood
                 </h2>
                 <p className="text-xs text-gray-400">
-                  Based on {da.similar_projects.length} similar projects
+                  Based on {da.similar_projects.length} similar project{da.similar_projects.length !== 1 ? "s" : ""}
                 </p>
               </div>
             </div>
             <ApprovalScoreGauge score={da.approval_score} />
           </section>
 
-          {/* PDF Links */}
+          {/* Documents */}
           {da.pdf_links.length > 0 && (
             <section className="card">
               <div className="mb-4 flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-50">
-                  <svg className="h-5 w-5 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-50">
+                  <svg className="h-4 w-4 text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
                   </svg>
                 </div>
-                <h2 className="text-lg font-bold text-gray-900">Documents</h2>
+                <h2 className="text-base font-bold text-gray-900">Documents</h2>
               </div>
               <div className="space-y-2">
                 <a
@@ -272,17 +270,17 @@ export default function DADetailPage({
                   target="_blank"
                   rel="noopener noreferrer"
                   download={`${da.id}-determination.pdf`}
-                  className="flex items-center gap-3 rounded-xl border border-gray-100 bg-gray-50/50 p-3 text-sm transition-all duration-200 hover:border-brand-200 hover:bg-brand-50/30"
+                  className="flex items-center gap-3 rounded-lg border border-gray-200 bg-gray-50 p-3 text-sm transition-colors duration-150 hover:border-brand-300 hover:bg-brand-50/50"
                 >
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-red-50">
-                    <svg className="h-4 w-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-red-50">
+                    <svg className="h-3.5 w-3.5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                   </div>
                   <span className="truncate font-medium text-gray-700">
                     {da.id}-determination.pdf
                   </span>
-                  <svg className="ml-auto h-4 w-4 shrink-0 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <svg className="ml-auto h-3.5 w-3.5 shrink-0 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                   </svg>
                 </a>
@@ -290,6 +288,24 @@ export default function DADetailPage({
             </section>
           )}
 
+          {/* No documents state */}
+          {da.pdf_links.length === 0 && (
+            <section className="card">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-100">
+                  <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                  </svg>
+                </div>
+                <h2 className="text-base font-bold text-gray-900">Documents</h2>
+              </div>
+              <div className="rounded-lg border border-dashed border-gray-300 py-6 text-center">
+                <p className="text-sm text-gray-400">
+                  No documents linked yet.
+                </p>
+              </div>
+            </section>
+          )}
         </div>
       </div>
     </div>

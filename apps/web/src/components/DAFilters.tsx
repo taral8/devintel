@@ -28,14 +28,14 @@ function SelectField({
 }) {
   return (
     <div className="flex flex-col gap-1.5">
-      <label className="text-xs font-semibold uppercase tracking-wider text-gray-400">
+      <label className="text-xs font-semibold uppercase tracking-wider text-gray-500">
         {label}
       </label>
       <div className="relative">
         <select
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full appearance-none rounded-xl border border-gray-200 bg-white py-2.5 pl-4 pr-10 text-sm font-medium text-gray-700 shadow-sm transition-all duration-200 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-100 hover:border-gray-300"
+          className="select"
         >
           <option value="">{placeholder}</option>
           {options.filter(Boolean).map((o) => (
@@ -69,7 +69,7 @@ export default function DAFilters({
   const hasFilters = council || zoning || outcome;
 
   return (
-    <div className="rounded-2xl border border-gray-100 bg-white p-5 shadow-card">
+    <div className="card">
       <div className="flex items-center gap-2 mb-4">
         <svg className="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
@@ -82,7 +82,7 @@ export default function DAFilters({
               onZoningChange("");
               onOutcomeChange("");
             }}
-            className="ml-auto text-xs font-medium text-brand-600 hover:text-brand-700 transition-colors"
+            className="ml-auto text-xs font-medium text-brand-700 hover:text-brand-900 transition-colors"
           >
             Clear all
           </button>

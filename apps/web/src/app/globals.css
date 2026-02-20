@@ -14,77 +14,113 @@
   }
 
   body {
-    @apply bg-white text-gray-900 antialiased;
+    @apply bg-gray-50 text-gray-900 antialiased;
   }
 
   ::selection {
     @apply bg-brand-100 text-brand-900;
   }
+
+  /* Focus ring utility */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-500;
+  }
 }
 
 @layer components {
-  /* Badges */
+  /* ── Status Badges ── */
   .badge {
-    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold tracking-wide uppercase;
+    @apply inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-semibold tracking-wide;
   }
   .badge-approved {
-    @apply badge bg-emerald-50 text-emerald-700 ring-1 ring-emerald-600/20;
+    @apply badge bg-status-approved-bg text-status-approved-text ring-1 ring-status-approved-ring/40;
   }
   .badge-refused {
-    @apply badge bg-red-50 text-red-700 ring-1 ring-red-600/20;
+    @apply badge bg-status-refused-bg text-status-refused-text ring-1 ring-status-refused-ring/40;
   }
   .badge-deferred {
-    @apply badge bg-amber-50 text-amber-700 ring-1 ring-amber-600/20;
+    @apply badge bg-status-deferred-bg text-status-deferred-text ring-1 ring-status-deferred-ring/40;
   }
   .badge-assessment {
-    @apply badge bg-sky-50 text-sky-700 ring-1 ring-sky-600/20;
+    @apply badge bg-status-assessment-bg text-status-assessment-text ring-1 ring-status-assessment-ring/40;
   }
 
-  /* Cards */
+  /* ── Cards ── */
   .card {
-    @apply rounded-2xl border border-gray-100 bg-white p-6 transition-all duration-300;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+    @apply rounded-xl border border-gray-200 bg-white p-6 shadow-card;
   }
   .card-hover {
-    @apply rounded-2xl border border-gray-100 bg-white p-6 transition-all duration-300;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+    @apply rounded-xl border border-gray-200 bg-white p-6 shadow-card transition-all duration-200;
   }
   .card-hover:hover {
-    @apply border-gray-200 -translate-y-0.5;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.06), 0 4px 10px rgba(0,0,0,0.04);
+    @apply border-gray-300 shadow-card-hover;
   }
   .card-dark {
-    @apply rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm;
+    @apply rounded-xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm;
   }
 
-  /* Buttons */
+  /* ── Buttons ── */
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:bg-brand-700 hover:shadow-md active:scale-[0.98];
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-brand-800 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:bg-brand-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-700 active:scale-[0.98];
   }
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-semibold text-gray-700 shadow-sm ring-1 ring-gray-200 transition-all duration-200 hover:bg-gray-50 hover:ring-gray-300 active:scale-[0.98];
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-gray-700 shadow-sm ring-1 ring-gray-300 transition-all duration-150 hover:bg-gray-50 hover:ring-gray-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500 active:scale-[0.98];
   }
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-gray-600 transition-all duration-200 hover:bg-gray-100 hover:text-gray-900;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold text-gray-600 transition-all duration-150 hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500;
+  }
+  .btn-destructive {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-red-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:bg-red-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 active:scale-[0.98];
   }
 
-  /* Section */
+  /* ── Inputs ── */
+  .input {
+    @apply w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 shadow-sm placeholder:text-gray-400 transition-colors duration-150 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100 hover:border-gray-400;
+  }
+  .select {
+    @apply w-full appearance-none rounded-lg border border-gray-300 bg-white py-2.5 pl-3.5 pr-10 text-sm font-medium text-gray-700 shadow-sm transition-colors duration-150 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-100 hover:border-gray-400;
+  }
+
+  /* ── Section Typography ── */
   .section-label {
     @apply text-xs font-bold uppercase tracking-widest text-brand-600;
   }
   .section-title {
-    @apply mt-2 text-3xl font-bold tracking-tight text-gray-900;
+    @apply mt-2 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl;
   }
   .section-subtitle {
-    @apply mt-3 text-lg leading-relaxed text-gray-500;
+    @apply mt-3 text-base leading-relaxed text-gray-500 sm:text-lg;
   }
 
-  /* Grid pattern background */
+  /* ── Table ── */
+  .table-header {
+    @apply sticky top-0 z-10 border-b border-gray-200 bg-gray-50;
+  }
+  .table-header th {
+    @apply px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500;
+  }
+  .table-row {
+    @apply border-b border-gray-100 transition-colors hover:bg-gray-50;
+  }
+  .table-row td {
+    @apply px-4 py-3.5 text-sm;
+  }
+
+  /* ── Loading Skeleton ── */
+  .skeleton {
+    @apply animate-pulse rounded-md bg-gray-200;
+  }
+  .skeleton-text {
+    @apply skeleton h-4 w-full;
+  }
+  .skeleton-text-sm {
+    @apply skeleton h-3 w-3/4;
+  }
+
+  /* ── Grid pattern background ── */
   .bg-grid {
     background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e5e7eb' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
-
-  /* Dot pattern */
   .bg-dots {
     background-image: radial-gradient(circle, #d1d5db 1px, transparent 1px);
     background-size: 24px 24px;

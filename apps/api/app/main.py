@@ -3,14 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.routers.das import router as das_router
 
 app = FastAPI(
-    title="CivRoda API",
-    description="Council Planning Intelligence — DA data for Parramatta, Blacktown & Hornsby",
+    title="CivroDA API",
+    description="Planning Intelligence — DA data for Parramatta, Blacktown & Hornsby",
     version="0.1.0",
 )
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://civroda.ai"],
+    allow_origins=["http://localhost:3000", "https://civroda.com"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

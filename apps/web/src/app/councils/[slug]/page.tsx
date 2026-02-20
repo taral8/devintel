@@ -11,7 +11,7 @@ const COUNCILS: Record<
     name: "Parramatta",
     region: "Western Sydney",
     description:
-      "Parramatta is one of Sydney's fastest-growing CBDs with major high-density development. Explore DA outcomes, approval rates, and common conditions across residential, commercial, and mixed-use projects in the Parramatta LGA.",
+      "Parramatta is one of Sydney's fastest-growing CBDs with major high-density development. Explore DA outcomes, approval rates, and common consent conditions across residential, commercial, and mixed-use projects in the Parramatta LGA.",
   },
   blacktown: {
     name: "Blacktown",
@@ -37,9 +37,9 @@ export function generateMetadata({
   params: { slug: string };
 }): Metadata {
   const council = COUNCILS[params.slug];
-  if (!council) return { title: "Council Not Found | CivRoda" };
+  if (!council) return { title: "Council Not Found" };
 
-  const title = `${council.name} Council DAs — Development Applications & Approval Rates | CivRoda`;
+  const title = `${council.name} Council — Development Applications & Approval Rates`;
   const description = `Browse development applications in ${council.name} Council, ${council.region}. View approval rates, common conditions, and compare similar projects.`;
 
   return {
@@ -49,10 +49,10 @@ export function generateMetadata({
       canonical: `https://civroda.com/councils/${params.slug}`,
     },
     openGraph: {
-      title,
+      title: `${title} | CivroDA`,
       description,
       url: `https://civroda.com/councils/${params.slug}`,
-      siteName: "CivRoda",
+      siteName: "CivroDA",
       type: "website",
     },
   };
@@ -98,17 +98,17 @@ export default function CouncilPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
-        <nav className="mb-6 flex items-center gap-2 text-sm">
+        <nav className="mb-5 flex items-center gap-2 text-sm" aria-label="Breadcrumb">
           <Link
             href="/"
-            className="text-gray-400 transition-colors hover:text-brand-600"
+            className="text-gray-400 transition-colors hover:text-brand-700"
           >
             Home
           </Link>
           <svg
-            className="h-4 w-4 text-gray-300"
+            className="h-3.5 w-3.5 text-gray-300"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -127,20 +127,20 @@ export default function CouncilPage({
         </nav>
 
         {/* Header */}
-        <div className="mb-10">
-          <p className="text-sm font-medium text-brand-600">
+        <div className="mb-8">
+          <p className="text-xs font-bold uppercase tracking-widest text-brand-600">
             {council.region}
           </p>
-          <h1 className="mt-1 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+          <h1 className="mt-1 text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
             {council.name} Council — Development Applications
           </h1>
-          <p className="mt-4 max-w-3xl text-lg text-gray-500">
+          <p className="mt-3 max-w-3xl text-base text-gray-500">
             {council.description}
           </p>
         </div>
 
         {/* Stats */}
-        <div className="mb-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mb-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
           {[
             { label: "Total DAs", value: das.length },
             { label: "Approved", value: approved.length },
@@ -150,10 +150,10 @@ export default function CouncilPage({
           ].map((stat) => (
             <div
               key={stat.label}
-              className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm"
+              className="card"
             >
-              <p className="text-sm text-gray-500">{stat.label}</p>
-              <p className="mt-1 text-2xl font-bold text-gray-900">
+              <p className="text-xs font-medium text-gray-500">{stat.label}</p>
+              <p className="mt-1 text-xl font-bold tabular-nums text-gray-900">
                 {stat.value}
               </p>
             </div>
@@ -161,32 +161,32 @@ export default function CouncilPage({
         </div>
 
         {/* DA List */}
-        <h2 className="mb-4 text-xl font-bold text-gray-900">
+        <h2 className="mb-3 text-lg font-bold text-gray-900">
           All Development Applications in {council.name}
         </h2>
-        <div className="space-y-3">
+        <div className="space-y-2">
           {das.map((da) => (
             <Link
               key={da.id}
               href={`/das/${da.id}`}
-              className="flex items-center justify-between rounded-xl border border-gray-100 bg-white p-4 transition-all hover:border-brand-200 hover:shadow-sm"
+              className="flex items-center justify-between rounded-lg border border-gray-200 bg-white p-4 transition-colors hover:border-gray-300 hover:bg-gray-50"
             >
               <div>
-                <p className="font-semibold text-gray-900">{da.address}</p>
-                <p className="mt-0.5 text-sm text-gray-500">
+                <p className="text-sm font-semibold text-gray-900">{da.address}</p>
+                <p className="mt-0.5 text-xs text-gray-500">
                   Zoning {da.zoning} &middot; {da.land_size} &middot;{" "}
                   {da.height} height &middot; FSR {da.FSR}
                 </p>
               </div>
               <span
-                className={`shrink-0 rounded-full px-3 py-1 text-xs font-semibold ${
+                className={`shrink-0 ${
                   da.DA_outcome === "Approved"
-                    ? "bg-emerald-50 text-emerald-700"
+                    ? "badge-approved"
                     : da.DA_outcome === "Refused"
-                      ? "bg-red-50 text-red-700"
+                      ? "badge-refused"
                       : da.DA_outcome === "Deferred"
-                        ? "bg-amber-50 text-amber-700"
-                        : "bg-sky-50 text-sky-700"
+                        ? "badge-deferred"
+                        : "badge-assessment"
                 }`}
               >
                 {da.DA_outcome}
@@ -196,14 +196,14 @@ export default function CouncilPage({
         </div>
 
         {/* CTA */}
-        <div className="mt-10 text-center">
+        <div className="mt-8 text-center">
           <Link
             href={`/das?council=${encodeURIComponent(council.name)}`}
-            className="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-700"
+            className="btn-primary"
           >
             Search all {council.name} DAs
             <svg
-              className="h-4 w-4"
+              className="h-3.5 w-3.5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"

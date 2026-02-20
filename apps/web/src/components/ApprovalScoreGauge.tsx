@@ -9,17 +9,17 @@ export default function ApprovalScoreGauge({ score }: { score: number }) {
   let label: string;
   let description: string;
   if (score >= 70) {
-    color = "#059669";
+    color = "#0d9488";
     bgColor = "bg-emerald-50";
     label = "Likely Approved";
     description = "Strong precedent from similar approved projects";
   } else if (score >= 40) {
-    color = "#d97706";
+    color = "#b45309";
     bgColor = "bg-amber-50";
     label = "Uncertain";
     description = "Mixed signals from comparable developments";
   } else {
-    color = "#dc2626";
+    color = "#b91c1c";
     bgColor = "bg-red-50";
     label = "Likely Refused";
     description = "Similar projects have mostly been refused";
@@ -27,8 +27,8 @@ export default function ApprovalScoreGauge({ score }: { score: number }) {
 
   return (
     <div className="flex flex-col items-center">
-      <div className={`relative rounded-full p-4 ${bgColor}`}>
-        <div className="relative h-36 w-36">
+      <div className={`relative rounded-full p-3 ${bgColor}`}>
+        <div className="relative h-32 w-32">
           <svg className="h-full w-full -rotate-90" viewBox="0 0 120 120">
             <circle
               cx="60"
@@ -36,7 +36,7 @@ export default function ApprovalScoreGauge({ score }: { score: number }) {
               r={radius}
               fill="none"
               stroke="#e5e7eb"
-              strokeWidth="8"
+              strokeWidth="6"
               opacity="0.5"
             />
             <circle
@@ -45,7 +45,7 @@ export default function ApprovalScoreGauge({ score }: { score: number }) {
               r={radius}
               fill="none"
               stroke={color}
-              strokeWidth="8"
+              strokeWidth="6"
               strokeLinecap="round"
               strokeDasharray={circumference}
               strokeDashoffset={dashOffset}
@@ -53,18 +53,18 @@ export default function ApprovalScoreGauge({ score }: { score: number }) {
             />
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-4xl font-extrabold tracking-tight" style={{ color }}>
+            <span className="text-3xl font-bold tabular-nums tracking-tight" style={{ color }}>
               {score}
             </span>
-            <span className="text-xs font-medium text-gray-400">out of 100</span>
+            <span className="text-2xs font-medium text-gray-400">out of 100</span>
           </div>
         </div>
       </div>
-      <div className="mt-4 text-center">
+      <div className="mt-3 text-center">
         <span className="text-sm font-bold" style={{ color }}>
           {label}
         </span>
-        <p className="mt-1 text-xs leading-relaxed text-gray-400">
+        <p className="mt-0.5 text-xs leading-relaxed text-gray-400">
           {description}
         </p>
       </div>

@@ -3,19 +3,19 @@ import type { CouncilInfo } from "@/lib/types";
 
 const councilColors: Record<string, { accent: string; bg: string; bar: string }> = {
   Parramatta: {
-    accent: "text-brand-600",
+    accent: "text-brand-700",
     bg: "bg-brand-50",
-    bar: "bg-brand-500",
+    bar: "bg-brand-600",
   },
   Blacktown: {
-    accent: "text-violet-600",
+    accent: "text-violet-700",
     bg: "bg-violet-50",
-    bar: "bg-violet-500",
+    bar: "bg-violet-600",
   },
   Hornsby: {
-    accent: "text-emerald-600",
+    accent: "text-emerald-700",
     bg: "bg-emerald-50",
-    bar: "bg-emerald-500",
+    bar: "bg-emerald-600",
   },
 };
 
@@ -25,7 +25,7 @@ export default function CouncilSelector({
   councils: CouncilInfo[];
 }) {
   return (
-    <div className="grid gap-6 sm:grid-cols-3">
+    <div className="grid gap-4 sm:grid-cols-3">
       {councils.map((council) => {
         const colors = councilColors[council.name] || councilColors.Parramatta;
         const approvalPct = council.approval_rate;
@@ -37,20 +37,20 @@ export default function CouncilSelector({
             className="card-hover group relative overflow-hidden"
           >
             {/* Top accent bar */}
-            <div className={`absolute left-0 right-0 top-0 h-1 ${colors.bar}`} />
+            <div className={`absolute left-0 right-0 top-0 h-0.5 ${colors.bar}`} />
 
             <div className="flex items-start justify-between">
               <div>
-                <h3 className={`text-xl font-bold text-gray-900 group-hover:${colors.accent} transition-colors`}>
+                <h3 className="text-lg font-bold text-gray-900">
                   {council.name}
                 </h3>
-                <p className="mt-0.5 text-sm text-gray-400">Council LGA</p>
+                <p className="mt-0.5 text-xs text-gray-400">Council LGA</p>
               </div>
               <div
-                className={`flex h-10 w-10 items-center justify-center rounded-xl ${colors.bg}`}
+                className={`flex h-9 w-9 items-center justify-center rounded-lg ${colors.bg}`}
               >
                 <svg
-                  className={`h-5 w-5 ${colors.accent}`}
+                  className={`h-4 w-4 ${colors.accent}`}
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -67,16 +67,16 @@ export default function CouncilSelector({
             </div>
 
             {/* Approval rate bar */}
-            <div className="mt-5">
+            <div className="mt-4">
               <div className="flex items-baseline justify-between">
-                <span className="text-sm font-medium text-gray-500">
+                <span className="text-xs font-medium text-gray-500">
                   Approval Rate
                 </span>
-                <span className="text-lg font-bold text-gray-900">
+                <span className="text-base font-bold tabular-nums text-gray-900">
                   {approvalPct}%
                 </span>
               </div>
-              <div className="mt-2 h-2 w-full overflow-hidden rounded-full bg-gray-100">
+              <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
                 <div
                   className={`h-full rounded-full ${colors.bar} transition-all duration-500`}
                   style={{ width: `${approvalPct}%` }}
@@ -85,31 +85,31 @@ export default function CouncilSelector({
             </div>
 
             {/* Stats row */}
-            <div className="mt-4 grid grid-cols-3 gap-3 border-t border-gray-100 pt-4">
+            <div className="mt-4 grid grid-cols-3 gap-3 border-t border-gray-200 pt-4">
               <div>
                 <p className="text-xs text-gray-400">Total</p>
-                <p className="text-sm font-bold text-gray-900">
+                <p className="text-sm font-bold tabular-nums text-gray-900">
                   {council.total_das}
                 </p>
               </div>
               <div>
                 <p className="text-xs text-gray-400">Approved</p>
-                <p className="text-sm font-bold text-emerald-600">
+                <p className="text-sm font-bold tabular-nums text-emerald-600">
                   {council.approved}
                 </p>
               </div>
               <div>
                 <p className="text-xs text-gray-400">Refused</p>
-                <p className="text-sm font-bold text-red-600">
+                <p className="text-sm font-bold tabular-nums text-red-600">
                   {council.refused}
                 </p>
               </div>
             </div>
 
-            {/* Hover arrow */}
-            <div className="mt-4 flex items-center gap-1 text-sm font-medium text-gray-400 transition-colors group-hover:text-brand-600">
+            {/* Hover link */}
+            <div className="mt-3 flex items-center gap-1 text-xs font-medium text-gray-400 transition-colors group-hover:text-brand-700">
               View all DAs
-              <svg className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden="true">
+              <svg className="h-3 w-3 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5} aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
               </svg>
             </div>
